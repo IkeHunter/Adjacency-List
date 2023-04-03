@@ -71,8 +71,37 @@ std::vector<std::string> AdjacencyList::getAdjacent(std::string &name) {
 
 }
 
-std::map<std::string, float> AdjacencyList::getWeights() {
-    return std::map<std::string, float>();
+std::map<int, std::vector<int>> AdjacencyList::getWeights() {
+    std::map<int, std::vector<int>> weights;
+
+    for(auto &key : graph) {
+        weights[key.first] = getWeights(key.first);
+    }
+
+    return weights;
+}
+
+std::vector<int> AdjacencyList::getWeights(int id) {
+    std::vector<int> weights;
+
+    for(auto &key : graph) {
+        for(auto adjacent : key.second.second) {
+            if(adjacent == id)
+                weights.push_back(key.first);
+        }
+    }
+
+    return weights;
+}
+std::vector<std::string> AdjacencyList::getWeights(std::string &name) {
+    std::vector<int> idWeights = getWeights(getId(name));
+    std::vector<std::string> nameWeights;
+
+    for(auto &id : idWeights) {
+        nameWeights.push_back(getName(id));
+    }
+
+    return nameWeights;
 }
 
 

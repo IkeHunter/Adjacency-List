@@ -48,9 +48,7 @@ private:
 
     /** Manipulation **/
     void addNode(std::string name);
-    void addNode(int id) {
-
-    }
+//    void addNode(int id);
 
 public:
     /** Constructors **/
@@ -64,14 +62,18 @@ public:
 //    std::vector<int> getKeys();  // get all keys in graph
     std::vector<int> getAdjacent(int id);  // get all adjacent nodes to id
     std::vector<std::string> getAdjacent(std::string &name);  // get adjacent nodes to name from id
-    std::map<std::string, float> getWeights();  // get all weights in graph
+//    std::map<std::string, float> getWeights();  // get all weights in graph
 
     std::vector<std::string> getUrls();  // get all urls in graph
 
     /** Page Rank **/
+    std::map<int, std::vector<int>> getWeights();  // get list of weights for ids
+    std::vector<int> getWeights(int id);  // get list of weights for id
+    std::vector<std::string> getWeights(std::string &name);  // get list of weights for name
     std::map<std::string, float> getRanks() {
         return std::map<std::string, float>();
     }
+
 
     // get page rank for all nodes
     std::map<int, float> getRanks(int iteration, std::map<int, std::vector<int>> &weights, std::map<int, float> previousIteration) {
