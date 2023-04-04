@@ -22,7 +22,7 @@ void AdjacencyList::insertEdge(std::string from, std::string to) {
     }
 
     graph[fromId].second.push_back(toId);
-    graph[fromId].first = getWeight(fromId);
+    graph[fromId].first = graph[fromId].second.size();
 }
 
 int AdjacencyList::getId(std::string &name) {
@@ -71,17 +71,17 @@ std::vector<std::string> AdjacencyList::getAdjacent(std::string &name) {
 
 }
 
-std::map<int, std::vector<int>> AdjacencyList::getWeights() {
+std::map<int, std::vector<int>> AdjacencyList::getInBoundUrls() {
     std::map<int, std::vector<int>> weights;
 
     for(auto &key : graph) {
-        weights[key.first] = getWeights(key.first);
+        weights[key.first] = getInBoundUrls(key.first);
     }
 
     return weights;
 }
 
-std::vector<int> AdjacencyList::getWeights(int id) {
+std::vector<int> AdjacencyList::getInBoundUrls(int id) {
     std::vector<int> weights;
 
     for(auto &key : graph) {
@@ -93,8 +93,8 @@ std::vector<int> AdjacencyList::getWeights(int id) {
 
     return weights;
 }
-std::vector<std::string> AdjacencyList::getWeights(std::string &name) {
-    std::vector<int> idWeights = getWeights(getId(name));
+std::vector<std::string> AdjacencyList::getInBoundUrls(std::string &name) {
+    std::vector<int> idWeights = getInBoundUrls(getId(name));
     std::vector<std::string> nameWeights;
 
     for(auto &id : idWeights) {
@@ -103,6 +103,63 @@ std::vector<std::string> AdjacencyList::getWeights(std::string &name) {
 
     return nameWeights;
 }
+
+float AdjacencyList::getWeight(int id) {
+    return graph[id].first;
+}
+
+std::map<int, float> AdjacencyList::pageRank(int iterations) {
+    std::map<int, std::vector<int>> weights = getInBoundUrls();
+    std::map<int, float> pageRanks;
+
+    for(auto &key : graph) {
+        pageRanks[key.first] = 1.0f / graph.size();
+    }
+
+    for(int i = 1; i < iterations; i++) {
+        std::map<int, float> currentIteration;
+
+        for(auto &from : graph) {
+            currentIteration[from.first] = 0;
+        }
+
+        for(auto &from : graph) {
+            for(auto &to : weights[from.first]) {
+                if(getWeight(to) != 0.0f) {
+                    float calcValue = pageRanks[to] / getWeight(to);
+                    currentIteration[from.first] += calcValue;
+                }
+            }
+        }
+
+        pageRanks = currentIteration;
+    }
+    return pageRanks;
+
+//    return pageRank(iterations, weights, pageRanks);
+}
+
+//std::map<int, float> AdjacencyList::pageRank(int iterations, std::map<int, std::vector<int>> &weights, std::map<int, float> &previousIteration) {
+//    std::map<int, float> currentIteration;
+//
+//    for(auto &from : graph) {
+//        currentIteration[from.first] = 0;
+//    }
+//
+//    for(auto &from : graph) {
+//        for(auto &to : weights[from.first]) {
+//            if(getWeight(to) != 0.0f) {
+//                currentIteration[from.first] += previousIteration[to] / getWeight(to);
+//            }
+//            currentIteration[from.first] += 0;
+//        }
+//    }
+//
+//    if(iterations == 1)
+//        return currentIteration;
+//
+//    return pageRank(iterations - 1, weights, currentIteration);
+//}
 
 
 

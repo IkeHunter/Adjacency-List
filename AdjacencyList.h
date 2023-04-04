@@ -11,6 +11,7 @@
 /** Adjacency List Implementation of Graph **/
 /*====================
  * Weight: 1/out-degree
+ * Weights: {inbound ids}
  *
  * Key: url name -> id
  * Graph: url id -> {weight, {adjacent nodes}}
@@ -26,9 +27,11 @@
 /**
  * DONE: create base class
  * DONE: create tests
- * TODO: create accessors
- * TODO: create insertEdge
+ * DONE: create accessors
+ * DONE: create insertEdge
+ * DONE: create getInBoundUrls
  * TODO: create page rank
+ * TODO: clean up, make accessible for grade scope
  */
 
 class AdjacencyList {
@@ -42,44 +45,41 @@ private:
 
     /** Helper Functions **/
     int getId(std::string &name);
-    float getWeight(int id) { return 0; }
+    float getWeight(int id);
 
     std::string getName(int id);
 
     /** Manipulation **/
     void addNode(std::string name);
-//    void addNode(int id);
 
 public:
     /** Constructors **/
     explicit AdjacencyList(int powerIteration);
-//    ~AdjacencyList();
 
     /** Manipulation **/
     void insertEdge(std::string from, std::string to);  // graph[from] = {_, {...,to}}
 
     /** Accessors **/
-//    std::vector<int> getKeys();  // get all keys in graph
     std::vector<int> getAdjacent(int id);  // get all adjacent nodes to id
     std::vector<std::string> getAdjacent(std::string &name);  // get adjacent nodes to name from id
-//    std::map<std::string, float> getWeights();  // get all weights in graph
 
     std::vector<std::string> getUrls();  // get all urls in graph
 
     /** Page Rank **/
-    std::map<int, std::vector<int>> getWeights();  // get list of weights for ids
-    std::vector<int> getWeights(int id);  // get list of weights for id
-    std::vector<std::string> getWeights(std::string &name);  // get list of weights for name
-    std::map<std::string, float> getRanks() {
+    std::map<int, std::vector<int>> getInBoundUrls();  // get list of weights for all ids
+    std::vector<int> getInBoundUrls(int id);  // get list of weights for id
+    std::vector<std::string> getInBoundUrls(std::string &name);  // get list of weights for name
+//    std::map<int, double> pageRank() {
+//        return std::map<int, double>();
+//    }
+    std::map<std::string, float> pageRank() {
         return std::map<std::string, float>();
     }
+    std::map<int, float> pageRank(int iterations);
 
 
     // get page rank for all nodes
-    std::map<int, float> getRanks(int iteration, std::map<int, std::vector<int>> &weights, std::map<int, float> previousIteration) {
-        return std::map<int, float>();
-    }
-    // return page rank from weights and previous iteration values
+    std::map<int, float> pageRank(int iteration, std::map<int, std::vector<int>> &weights, std::map<int, float> &previousIteration) { return std::map<int, float>();};  // return page rank from weights and previous iteration values
 
 };
 
