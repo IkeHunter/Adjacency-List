@@ -16,7 +16,7 @@ int main() {
     }
     //Create a graph object
 
-    graph.PageRank(power_iterations);
+    graph.printPageRank(power_iterations);
 
     return 0;
 }
