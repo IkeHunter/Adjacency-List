@@ -186,5 +186,32 @@ void AdjacencyList::printPageRank(int iterations) {
     }
 }
 
+/**
+ * Testing functions
+ */
+std::vector<std::string> AdjacencyList::getUrls() {
+    std::vector<std::string> urls;
+    for(auto &url : keys) {
+        urls.push_back(url.first);
+    }
+    return urls;
+}
+
+std::vector<int> AdjacencyList::getAdjacent(int id) {
+    return graph[id].second;
+}
+
+std::vector<std::string> AdjacencyList::getAdjacent(std::string &name) {
+    std::vector<std::string> urls;
+    std::vector<int> ids = getAdjacent(getId(name));
+
+    for(auto &id : ids) {
+        urls.push_back(getName(id));
+    }
+
+    return urls;
+
+}
+
 
 

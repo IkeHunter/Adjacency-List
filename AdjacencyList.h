@@ -56,8 +56,6 @@ public:
     /** Manipulation **/
     void insertEdge(std::string from, std::string to);  // graph[from] = {_, {...,to}}
 
-
-
     /** Page Rank **/
     std::map<int, std::vector<int>> getInBoundUrls();  // get list of weights for all ids
     std::vector<int> getInBoundUrls(int id);  // get list of weights for id
@@ -65,6 +63,12 @@ public:
     std::map<int, float> pageRank(int iterations);
 
     void printPageRank(int iterations);
+
+    /** Testing **/
+    std::vector<std::string> getUrls();
+    std::vector<int> getAdjacent(int id);
+    std::vector<std::string> getAdjacent(std::string &name);
+
 };
 
 

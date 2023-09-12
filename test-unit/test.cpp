@@ -6,7 +6,7 @@
 
 TEST_CASE("Graph Insert", "[flag]") {
     /*** Should insertEdge values, return correct values ***/
-    AdjacencyList graph(2);
+    AdjacencyList graph;
     std::string input_1 = "google.com";
     std::string input_2 = "facebook.com";
 
@@ -26,7 +26,7 @@ TEST_CASE("Graph Links and Accessors", "[flag]") {
     /*** Should return correct urls given different connections ***/
 
     /* Test graph input and edge creation */
-    AdjacencyList graph(2);
+    AdjacencyList graph;
     std::string input_1 = "google.com";
     std::string input_2 = "facebook.com";
     std::string input_3 = "amazon.com";
@@ -79,7 +79,7 @@ TEST_CASE("Page Rank Single Weights", "[flags]") {
      */
 
     /* Insert urls */
-    AdjacencyList graph(2);
+    AdjacencyList graph;
     std::string input_1 = "google.com";
     std::string input_2 = "facebook.com";
     std::string input_3 = "amazon.com";
@@ -111,7 +111,7 @@ TEST_CASE("Page Rank Single Weights", "[flags]") {
 TEST_CASE("Page Rank All Weights", "[flags]") {
     /*** Should return all correct weights for urls ***/
 
-    AdjacencyList graph(2);
+    AdjacencyList graph;
     std::string input_0 = "google.com";
     std::string input_1 = "facebook.com";
     std::string input_2 = "amazon.com";
@@ -138,7 +138,7 @@ TEST_CASE("Page Rank All Weights", "[flags]") {
 TEST_CASE("Test Page Rank with power iteration of 2", "[flags]") {
     /*** Should return correct page rank for urls with page rank of 2 ***/
 
-    AdjacencyList graph(2);
+    AdjacencyList graph;
     std::string input_0 = "google.com";
     std::string input_1 = "facebook.com";
     std::string input_2 = "amazon.com";
@@ -166,7 +166,7 @@ TEST_CASE("Test Page Rank with power iteration of 2", "[flags]") {
 TEST_CASE("Test Page Rank with power iteration of 3", "[flags]") {
     /*** Should return correct page rank for urls with page rank of 2 ***/
 
-    AdjacencyList graph(3);
+    AdjacencyList graph;
     std::string input_0 = "google.com";
     std::string input_1 = "facebook.com";
     std::string input_2 = "amazon.com";
@@ -195,7 +195,7 @@ TEST_CASE("Test Page Rank with Larger Data Graph", "[flags]") {
     /*** Should return correct page rank for urls with page rank of 3 ***/
 
     // Power Iterations = 2
-    AdjacencyList graph(2);
+    AdjacencyList graph;
     std::string input_0 = "google.com";
     std::string input_1 = "facebook.com";
     std::string input_2 = "amazon.com";
@@ -253,6 +253,10 @@ TEST_CASE("Test Page Rank with Larger Data Graph", "[flags]") {
     for(auto &key : a_output_2) {
         REQUIRE(Approx(e_output_2[key.first]) ==key.second);
     }
+}
+
+TEST_CASE("Test Page Rank with max size of data", "[flags]") {
+
 }
 
 

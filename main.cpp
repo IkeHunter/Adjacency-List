@@ -11,11 +11,8 @@ int main() {
     for(int i = 0; i < no_of_lines; i++) {
         std::cin >> from;
         std::cin >> to;
-    // Do Something
         graph.insertEdge(from, to);
     }
-    //Create a graph object
-
     graph.printPageRank(power_iterations);
 
     return 0;
